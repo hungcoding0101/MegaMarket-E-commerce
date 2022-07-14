@@ -1,0 +1,1 @@
+export const PRODUCT_SEARCH_TYPES = ['name', 'category'];

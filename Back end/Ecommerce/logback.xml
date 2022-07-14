@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="SAVE-TO-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>C:/Users/quoc hung/eclipse-workspace/Ecommerce/src/main/resources/timeBasedlogFile.log</file>
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} ([%thread]) %-5level %logger{36}.%M - %msg%n</pattern>
+        </encoder>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">        
+	        <!-- daily rollover -->
+	        <fileNamePattern>C:/Users/quoc hung/eclipse-workspace/Ecommerce/src/main/resources/timeBasedlogFile.%d{yyyy-MM-dd-HH-mm}.log</fileNamePattern>
+	        <maxHistory>30</maxHistory>
+    	</rollingPolicy>
+    </appender>
+    
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="SAVE-TO-FILE" />
+    </root>
+</configuration>
