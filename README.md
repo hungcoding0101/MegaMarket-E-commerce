@@ -24,5 +24,5 @@
 
 ## :man_technologist: Technical details
 - In front end, global state management is performed by React query in order to guarantee that the state is always updated with fresh data from server
-- Authentication and authorization are implemented by using JWT stored inside a HttpOnly cookie on client side
-- Any time users upload static resource (like images, videos, etc.) to server, the server will create a new name and a corresponding key for each file. Afterwards client side will use that key to access the corresponding file. Ther purpose of this is to prevent users to upload malicious files and then trigger them in the server.
+- Authentication and authorization are implemented by using JWTs stored inside HttpOnly cookies on client side
+- Any time users upload static resource (like images, videos, etc.) to server, the server will create a new name and a corresponding key for each file. Afterwards client side will use that key to access the corresponding file. The purpose of this is to prevent users to upload malicious files and then trigger them in the server.
