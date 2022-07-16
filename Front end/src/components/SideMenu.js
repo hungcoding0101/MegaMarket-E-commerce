@@ -11,7 +11,6 @@ import {
 } from "@ant-design/icons";
 import { useProductCategoryTree } from "../Hooks/ProductCategoryHooks";
 import { Link, useHistory } from "react-router-dom";
-import { useCurrentUser } from "../Hooks/UserHooks";
 import { useContext } from "react";
 import { appContext } from "../App";
 
@@ -19,8 +18,6 @@ const SideMenu = (props) => {
   const categoryTree = useProductCategoryTree(null, null, true);
 
   const context = useContext(appContext);
-
-  /* const user = useCurrentUser(null, null, true);*/
 
   const user = context.user;
   const logOut = context.logOut;
@@ -30,6 +27,8 @@ const SideMenu = (props) => {
   const setSideMenuVisible = props.setSideMenuVisible;
 
   const setSignInVisible = props.setSignInVisible;
+
+  const isCustomer = user?.data?.data.role === "ROLE_CUSTOMER";
 
   const getItem = (label, key, icon, children, type) => {
     return {
@@ -48,7 +47,6 @@ const SideMenu = (props) => {
       <TreeSelect
         treeData={categoryTree.data?.data}
         placeholder="Product categories"
-        /*  treeLine={true} */
         allowClear={true}
         dropdownMatchSelectWidth={false}
         dropdownStyle={{
@@ -74,27 +72,31 @@ const SideMenu = (props) => {
           "3",
           <KeyOutlined />,
           [
-            user?.data?.data.role === "ROLE_CUSTOMER"?
-            getItem(
-              <Link to={"/customer/orders"}>Your orders</Link>,
-              "3-order",
-              <ShoppingOutlined />
-            )
-            :null,
+            isCustomer
+              ? getItem(
+                  <Link to={`/${isCustomer ? "customer" : "seller"}/orders`}>
+                    Your orders
+                  </Link>,
+                  "3-order",
+                  <ShoppingOutlined />
+                )
+              : null,
 
             getItem(
-              <Link to={"/customer/basic_info"}>Basic info</Link>,
+              <Link to={`/${isCustomer ? "customer" : "seller"}/basic_info`}>
+                Basic info
+              </Link>,
               "3-info",
               <UserOutlined />
             ),
 
-            user?.data?.data.role === "ROLE_CUSTOMER"?
-            getItem(
-              <Link to={"/customer/addresses"}>Address book</Link>,
-              "3-addresses",
-              <EnvironmentOutlined />
-            )
-            :null,
+            isCustomer
+              ? getItem(
+                  <Link to={"/customer/addresses"}>Address book</Link>,
+                  "3-addresses",
+                  <EnvironmentOutlined />
+                )
+              : null,
           ]
         )
       : getItem(
@@ -105,7 +107,7 @@ const SideMenu = (props) => {
 
     user.isSuccess
       ? getItem(
-          <Link to={`/customer/notifications`}>
+          <Link to={`/${isCustomer ? "customer" : "seller"}/notifications`}>
             Notifications{" "}
             <Badge
               count={
