@@ -84,7 +84,7 @@ public class NotificationRepositoryImp implements NotificationRepository{
 		}
 	
 	@Override
-	public List<Notification> findManyByProperty(String propertyName, List<Object> values, boolean trueIsAscending_falseIsDescending,
+	public List<Notification> findManyByProperty(String propertyName,  Object[] values, boolean trueIsAscending_falseIsDescending,
 			boolean fetchOrNot) {
 		CriteriaBuilder CB = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Notification> CQ = CB.createQuery(Notification.class);

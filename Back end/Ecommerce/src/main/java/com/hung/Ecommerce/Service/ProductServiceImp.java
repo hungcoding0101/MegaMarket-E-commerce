@@ -65,7 +65,7 @@ private ProductRepository productRepository;
 	
 	@Transactional(readOnly = true)
 	@Override
-	public List<Product> findManyByProperty(String propertyName, List<Object> values,
+	public List<Product> findManyByProperty(String propertyName, Object[] values,
 			boolean trueIsAscending_falseIsDescending, boolean fetchOrNot) {
 		return productRepository.findManyByProperty(propertyName, values, trueIsAscending_falseIsDescending, fetchOrNot);
 	}

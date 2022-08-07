@@ -2,6 +2,7 @@ package com.hung.Ecommerce.Controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,7 +42,7 @@ import com.hung.Ecommerce.Util.JsonConverter.Views;
 import static java.lang.System.*
 ;
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
 	@Autowired
@@ -125,7 +126,7 @@ public class ProductController {
 			}		
 	}
 	
-	@GetMapping("/getProduct/{id}")
+	@GetMapping("/{id}")
 	@JsonView(value = {Views.JSONProduct_public.class})
 		public ResponseEntity<Product> getProduct(@PathVariable String  id) throws GeneralException{
 		List<Product> matchedProduct = new ArrayList<>();
@@ -149,11 +150,11 @@ public class ProductController {
 		return ResponseEntity.status(HttpStatus.OK).body(product);	
 	}
 	
-	@PostMapping("/getProducts")
+	@PostMapping("/list")
 	@JsonView(value = {Views.JSONProduct_public.class})
-		public ResponseEntity<List<Product>> getProducts(@RequestBody List<Object>  ids) throws GeneralException{		
+		public ResponseEntity<List<Product>> getProducts(@RequestBody Object[]  ids) throws GeneralException{		
 			
-			List<Product> matchedProducts = new ArrayList<>();
+			List<Product> matchedProducts = new LinkedList<>();
 			try {
 				 matchedProducts = productService.findManyByProperty("id", ids, false, true);
 			} catch (Exception e) {
@@ -175,7 +176,7 @@ public class ProductController {
 	
 	}
 	
-	@GetMapping("/getAllProducts")
+	@GetMapping("/all")
 	@JsonView(value = {Views.JSONProduct_public.class})
 		public ResponseEntity<List<Product>> getProducts() throws Exception{
 		
@@ -222,6 +223,4 @@ public class ProductController {
 				
 				return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
-	
-	
 }

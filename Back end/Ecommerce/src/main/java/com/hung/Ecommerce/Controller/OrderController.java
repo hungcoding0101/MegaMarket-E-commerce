@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,7 +69,7 @@ public class OrderController {
 		return ResponseEntity.status(HttpStatus.MULTI_STATUS).body(result);
 	}
 	
-	@DeleteMapping("/cancel")
+	@PatchMapping("/cancel")
 		public void cancel(OAuth2Authentication authentication, @RequestParam String id) throws Exception{
 				String username = authentication.getName() ;
 				try {

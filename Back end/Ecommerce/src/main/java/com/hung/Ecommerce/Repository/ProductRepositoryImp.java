@@ -126,7 +126,7 @@ public Product findById(int id, boolean fetchOrNot) {
 	}
 
 @Override
-public List<Product> findManyByProperty(String propertyName, List<Object> values, boolean trueIsAscending_falseIsDescending,
+public List<Product> findManyByProperty(String propertyName, Object[] values, boolean trueIsAscending_falseIsDescending,
 		boolean fetchOrNot) {
 	CriteriaBuilder CB = entityManager.getCriteriaBuilder();
 	CriteriaQuery<Product> CQ = CB.createQuery(Product.class);

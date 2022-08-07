@@ -77,7 +77,7 @@ public class SecurityConfig{
 			.cors(c -> {
 				CorsConfigurationSource source = request -> {
 					CorsConfiguration config = new CorsConfiguration();
-					config.setAllowedOrigins(List.of());
+					config.setAllowedOrigins(List.of("http://171.226.43.33:3000/","http://192.168.1.4:3000/", "http://192.168.1.3:3000/", "https://megamarket-184661.netlify.app/"));
 					config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 					config.setAllowedHeaders(List.of("*"));
 					config.setAllowCredentials(true);
@@ -91,6 +91,99 @@ public class SecurityConfig{
 		    .formLogin().permitAll();
 		}
 	}
+	
+//	@Configuration
+//	@Order(19) // we have to set rank of WebSecurityConfigurerAdapter's filterChains higher then resource server's
+//		public static class Oauth2FB extends WebSecurityConfigurerAdapter{
+//		
+//		private ClientRegistrationRepository clientRepository() {
+//			 var c = clientRegistration();
+//			 return new InMemoryClientRegistrationRepository(c);
+//		}
+//		
+//		private ClientRegistration clientRegistration() {
+//			 return CommonOAuth2Provider.FACEBOOK.getBuilder("facebook")
+//			 .clientId("1006798813300787")
+//			 .clientSecret("7353c562886bd106ede92439af2757e8")
+//			 .build();
+//		}
+//		
+//			@Override
+//	        protected void configure(HttpSecurity http) throws Exception {
+////				http.oauth2Login(c -> {
+////					c.clientRegistrationRepository(clientRepository());
+////				});
+//				http.requestMatchers().mvcMatchers("/user/login/facebook").and().authorizeRequests(authorize -> authorize
+//	                    .antMatchers("/user/login/facebook").authenticated()
+//	                    .anyRequest().permitAll()).oauth2Login(c -> {
+//	    					c.clientRegistrationRepository(clientRepository());})
+//				.cors(c -> {
+//					CorsConfigurationSource source = request -> {
+//						CorsConfiguration config = new CorsConfiguration();
+//						config.setAllowedOrigins(List.of("http://localhost:3000/", "http://192.168.1.3:3000/", "http://127.0.0.1:3000/",
+//								"https://localhost:3000/", "https://192.168.1.3:3000/", "https://127.0.0.1:3000/"));
+//						config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+//						config.setAllowedHeaders(List.of("*"));
+//						config.setAllowCredentials(true);
+//						return config; 
+//					};
+//					c.configurationSource(source); 
+//				});
+//
+//			}
+//	}
 }
 
-
+//@Configuration
+//@Order(30) // we have to set rank of WebSecurityConfigurerAdapter's filterChains higher then resource server's
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+//public class SecurityConfig extends WebSecurityConfigurerAdapter{
+//	
+//	private JPAUserDetailsService jPAUserDetailsService;
+//	
+//	@Autowired
+//		public SecurityConfig(JPAUserDetailsService jPAUserDetailsService) {
+//			super();
+//			this.jPAUserDetailsService = jPAUserDetailsService;
+//		}
+//
+//	@Bean
+//		public PasswordEncoder passwordEncoder() {
+//			return new BCryptPasswordEncoder();
+//		}
+//
+//	@Override
+//	@Bean
+//		public AuthenticationManager authenticationManagerBean() throws Exception {
+//			return super.authenticationManagerBean();
+//		}
+//
+//	
+//	@Override
+//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.userDetailsService(jPAUserDetailsService);
+//	}
+//
+//	
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http
+//		.cors(c -> {
+//			CorsConfigurationSource source = request -> {
+//				CorsConfiguration config = new CorsConfiguration();
+//				config.setAllowedOrigins(List.of("http://localhost:3000/", "http://192.168.1.3:3000/", "http://127.0.0.1:3000/"));
+//				config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+//				config.setAllowedHeaders(List.of("*"));
+//				config.setAllowCredentials(true);
+//				return config; 
+//			};
+//			c.configurationSource(source); 
+//		})
+//		.csrf().disable()
+//	    .authorizeRequests().mvcMatchers("/oauth/authorize").authenticated()
+//	    .and()
+//	    .formLogin().permitAll();
+//	}
+//	
+//
+//}

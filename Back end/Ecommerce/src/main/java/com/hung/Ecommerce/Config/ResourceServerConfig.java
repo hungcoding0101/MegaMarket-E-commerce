@@ -49,7 +49,8 @@ public class ResourceServerConfig{
 				http.cors(c -> {
 					CorsConfigurationSource source = request -> {
 						CorsConfiguration config = new CorsConfiguration();
-						config.setAllowedOrigins(List.of());
+						config.setAllowedOrigins(List.of("https://localhost:3000/", "http://192.168.1.4:3000/", "http://192.168.1.3:3000/",
+								"https://megamarket-184661.netlify.app/", "http://192.168.1.2:3000/", "http://27.65.247.40:3000/"));
 						config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS ", "PATCH"));
 						config.setAllowedHeaders(List.of("*"));
 						config.setAllowCredentials(true);
@@ -60,21 +61,95 @@ public class ResourceServerConfig{
 				.csrf()
 //				.disable()
 				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-				.ignoringAntMatchers("/user/signup", "/user/reset/passwords/**", "/customer/signup", "/seller/signup",  "/seller/upload/image",
-						"/product/suggestions", "/product/getProduct/{id}", "/product/getAllProducts","/product/getProducts",
-						"/product/search/**", "/resources/**", "/product/categories/**", "/mrAdmin/**")
+				.ignoringAntMatchers("/user/signup", "/user/reset/passwords/**", "/customer/signup", "/seller/signup",  "/seller/upload/image"
+						, "/resources/**", "/mrAdmin/**","/products/**"
+//						, "/products/getProduct/{id}", "/products/getAllProducts","/products/getProducts",
+//						"/products/search/**", "/products/categories/**"
+						)
 				.and()
-				.requestMatchers().mvcMatchers("/user/**", "/customer/**", "/seller/**","/product/**", "/resources**","/cart/**", "/order/**",
+				.requestMatchers().mvcMatchers("/user/**", "/customer/**", "/seller/**","/products/**", "/resources**","/cart/**", "/order/**",
 						"/notification/**", "/csrf")
 				.and()
 				.authorizeRequests().mvcMatchers("/customer/**", "/order/add", "/order/cancel/**", "/cart/**").hasRole("CUSTOMER")
-				.mvcMatchers("/user/signup", "/user/reset/passwords/**", "/customer/signup", "/seller/signup",  "/seller/upload/image",
-						"/product/suggestions", "/product/getProduct/{id}", "/product/getAllProducts","/product/getProducts",
-						"/product/search/**", "/resources/**", "/product/categories/**", "/mrAdmin/**", "/csrf")
+				.mvcMatchers("/user/signup", "/user/reset/passwords/**", "/customer/signup", "/seller/signup",  "/seller/upload/image"
+						, "/resources/**", "/products/categories/**", "/mrAdmin/**",
+						"/products/**"
+//						,"/products/getProduct/{id}", "/products/getAllProducts","/products/getProducts",
+//						"/products/search/**"
+						)
 				.permitAll()
 				.anyRequest().authenticated();
 			}	 	
 		}
 	
-
+//	@Configuration
+//	@Order(18)
+//		public static class FBConfig extends WebSecurityConfigurerAdapter{
+//		private ClientRegistrationRepository clientRepository() {
+//			 var c = clientRegistration();
+//			 return new InMemoryClientRegistrationRepository(c);
+//		}
+//		
+//		private ClientRegistration clientRegistration() {
+//			 return CommonOAuth2Provider.FACEBOOK.getBuilder("facebook")
+//			 .clientId("1006798813300787")
+//			 .clientSecret("7353c562886bd106ede92439af2757e8")
+//			 .build();
+//		}
+//		
+//			@Override
+//	        public void configure(HttpSecurity http) throws Exception {
+//				
+//				http.requestMatchers().mvcMatchers("/user/login/facebook")
+//				.and()
+//				.authorizeRequests(authorize -> {
+//					try {
+//						authorize
+//						        .mvcMatchers("/user/login/facebook").authenticated().and().oauth2Login(c -> {
+//									c.clientRegistrationRepository(clientRepository());
+//								});
+//					} catch (Exception e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+//	             );
+//			}
+//	}
 }
+
+//@Configuration
+//@Order(20)
+//@EnableResourceServer
+//public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
+//
+//	@Autowired
+//		private SecurityAssistant SecurityAssistant;
+//	
+//	@Autowired
+//		private StaticResourceMapperService staticResourceMapperService;	
+//	
+//	@Override
+//	public void configure(HttpSecurity http) throws Exception {
+//		http.cors(c -> {
+//			CorsConfigurationSource source = request -> {
+//				CorsConfiguration config = new CorsConfiguration();
+//				config.setAllowedOrigins(List.of("http://localhost:3000/", "http://192.168.1.2:3000/", "http://192.168.1.3:3000/",
+//						"http://116.106.3.186:3000/"));
+//				config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS ", "PATCH"));
+//				config.setAllowedHeaders(List.of("*"));
+//				config.setAllowCredentials(true);
+//				return config;
+//			};
+//			c.configurationSource(source);
+//		})
+//		.csrf().disable()
+//		.requestMatchers().mvcMatchers("/user/**","/customer/**", "/seller/**","/product/**", "/resources**","/cart/**", "/order/**").and()
+//		.authorizeRequests().mvcMatchers("/order/add", "/order/cancel/**", "/cart/**").hasRole("CUSTOMER")
+//		.mvcMatchers("/customer/signup", "/seller/signup",  "/seller/upload/image", "/product/suggestions",
+//				"/product/getProduct/{id}", "/product/getProducts", "/product/search/**", "/resources/**", "/product/categories/**",
+//				"/mrAdmin/**")
+//		.permitAll()
+//		.anyRequest().authenticated();
+//	}	 	
+//}

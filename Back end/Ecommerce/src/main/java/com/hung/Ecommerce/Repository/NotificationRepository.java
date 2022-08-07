@@ -6,6 +6,6 @@ import com.hung.Ecommerce.Model.Notification;
 
 public interface NotificationRepository extends CustomRepository<Notification> {
 
-	public List<Notification> findManyByProperty(String propertyName, List<Object> values, boolean trueIsAscending_falseIsDescending,
+	public List<Notification> findManyByProperty(String propertyName,  Object[] values, boolean trueIsAscending_falseIsDescending,
 			boolean fetchOrNot);
 }

@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -63,7 +64,7 @@ public class CustomerController {
 				}
 	}
 	
-	@PutMapping("/updateAddresses")
+	@PatchMapping("/updateAddresses")
 		public ResponseEntity<String> updateAddresses(@RequestBody List<String> addresses,
 						OAuth2Authentication authentication) throws GeneralException {
 				try {
@@ -72,12 +73,5 @@ public class CustomerController {
 				} catch (Exception e) {
 					throw new GeneralException("");
 				}
-	}
-
-	
-	@GetMapping ("/Prize")
-	public String target(@AuthenticationPrincipal User user ) {
-		
-		return "<h1>HI " + user.getEmail()+"</h1> </br> "; 
 	}
 }

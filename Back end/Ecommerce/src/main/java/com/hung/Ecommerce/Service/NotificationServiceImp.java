@@ -47,7 +47,7 @@ public class NotificationServiceImp implements NotificationService{
 	
 	@Transactional(readOnly = true)
 	@Override
-		public List<Notification> findManyByProperty(String propertyName, List<Object> values,
+		public List<Notification> findManyByProperty(String propertyName,  Object[] values,
 				boolean trueIsAscending_falseIsDescending, boolean fetchOrNot) {
 			return notificationRepository.findManyByProperty(propertyName, values, trueIsAscending_falseIsDescending,
 						fetchOrNot);
@@ -99,13 +99,13 @@ public class NotificationServiceImp implements NotificationService{
 
 	@Transactional
 	@Override
-	public void updateStatus(List<String> ids, String userName) throws Exception{
+	public void updateStatus( Object[] ids, String userName) throws Exception{
 		try {			
 			List<User> matchedUser = userService.findByProperty("username", userName, false, false);
 			
 			if(!matchedUser.isEmpty()) {
 				User user = matchedUser.get(0);
-				List<Notification> notifications = notificationRepository.findManyByProperty("id", new ArrayList<Object>(ids) ,false, false);
+				List<Notification> notifications = notificationRepository.findManyByProperty("id", ids ,false, false);
 				for(int i = 0; i < notifications.size(); i++) {
 						Notification notification = notifications.get(i);
 						if(notification.getTargetUser().equals(user) && notification.getStatus().equals(NotificationStatus.NEW)) {

@@ -140,53 +140,12 @@ public class SellerController {
 				,@RequestPart (required = false) MultipartFile avatarImage
 				, @RequestPart (required = false)MultipartFile[] otherImages
 				, @RequestPart (required = false)MultipartFile[] optionImages) throws NoSuchAlgorithmException {
-
-				
-//				MultipartHolder avatarHolder = null;
-//				List<MultipartHolder> otherHolder = new ArrayList<MultipartHolder>();
-//				List<MultipartHolder> optionHolder = new ArrayList<MultipartHolder>();
-//				
-//				if(avatarImage != null) {
-//					try {
-//						avatarHolder = new MultipartHolder(avatarImage.getBytes(), avatarImage.getOriginalFilename(),
-//								avatarImage.getContentType());
-//					} catch (IOException e1) {
-//						e1.printStackTrace();
-//					}
-//				}
-//				
-//				
-//				if(otherImages != null) {
-//					for(MultipartFile file: otherImages) {
-//						MultipartHolder holder;
-//						try {
-//							holder = new MultipartHolder(file.getBytes(), file.getOriginalFilename(), file.getContentType());
-//							otherHolder.add(holder);
-//						} catch (IOException e) {
-//							e.printStackTrace();
-//						}
-//					}
-//				}
-//				
-//				if(optionImages != null) {
-//					for(MultipartFile file: optionImages) {
-//						MultipartHolder holder;
-//						try {
-//							holder = new MultipartHolder(file.getBytes(), file.getOriginalFilename(), file.getContentType());
-//							optionHolder.add(holder);
-//						} catch (IOException e) {
-//							e.printStackTrace();
-//						}
-//					}
-//				}
 		
 				UploadProductResult result;
 				try {
 					product.setSellerName(authentication.getName());
-					result = sellerService.uploadProduct(product, avatarImage
-							,otherImages
-							, optionImages);
-//					productService.addImagesToProduct(result.getUploadedProduct().getId(), avatarHolder, otherHolder, optionHolder);
+					result = sellerService.uploadProduct(product, avatarImage ,otherImages, optionImages);
+
 					out.println("HERE: UPDATE DONE!");
 				}catch(ConstraintViolationException e) {
 					Set<ConstraintViolation<?>> violations = e.getConstraintViolations();

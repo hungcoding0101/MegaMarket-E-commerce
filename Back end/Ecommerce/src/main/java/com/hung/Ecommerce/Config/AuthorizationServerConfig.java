@@ -130,18 +130,18 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	
 	@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-
+//			JdbcClientDetailsService service = new JdbcClientDetailsService(dataSource);
 
 		clients.inMemory()
-		.withClient("")
-
-		.secret(passwordEncoder.encode("")).authorizedGrantTypes("authorization_code",
+		.withClient("my_ecommerce")
+		// Since we provided Bcrypt as encoder, the client secret must be encoded by Bcrypt
+		.secret(passwordEncoder.encode("myproject0101")).authorizedGrantTypes("authorization_code",
 				"refresh_token", "password")
-		.scopes("").redirectUris("http://localhost:8080/home")
+		.scopes("admin").redirectUris("http://localhost:8080/home")
 		.and()
 		.inMemory()
-		.withClient("")
-		.secret("");
+		.withClient("resourceserver")
+		.secret("HelloAuthServer0101");
 		}
 
 	
@@ -152,14 +152,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			
 		 	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		 	CorsConfiguration config = new CorsConfiguration();
-		 	config.setAllowedOrigins(List.of());
-			config.setAllowedMethods(List.of("GET", "POST","PUT", "DELETE", "OPTIONS", "PATCH"));
+		 	config.setAllowedOrigins(List.of("https://megamarket-184661.netlify.app/", "http://192.168.1.4:3000/",  "http://192.168.1.3:3000/",
+		 			"http://27.65.247.40:3000/"));
+			config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 			config.setAllowedHeaders(List.of("*"));
 			config.setAllowCredentials(true);
 			source.registerCorsConfiguration("/oauth/token", config);
 			
 			CorsFilter corsFilter = new CorsFilter(source);
-
+		//	security.addTokenEndpointAuthenticationFilter(new CheckBannedTokensFilter2(securityAssistant));
 			security.addTokenEndpointAuthenticationFilter(corsFilter);
 		 	
 		}

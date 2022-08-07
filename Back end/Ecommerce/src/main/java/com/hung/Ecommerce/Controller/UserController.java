@@ -71,12 +71,7 @@ public class UserController {
 			String newURL = request.getRequestURI().replace("user/login", role.replace("ROLE_", "").toLowerCase() + "/getAllInfo");
 			request.getRequestDispatcher(newURL).forward(request, response);
 	}
-	
-	@GetMapping("/login/facebook")
-	public String logginWithFB(OAuth2AuthenticationToken token) {
-			out.println("HERE: FACEBOOK NAME: " + token.getName());
-			return token.getName();
-	}
+
 	
 	@GetMapping("/reset/passwords/require")
 		public ResponseEntity<String> sendPassResetCode(@RequestParam String email) throws GeneralException {
@@ -133,7 +128,6 @@ public class UserController {
 	
 	@GetMapping("/logout")
 		public void logOut( HttpServletRequest request, HttpServletResponse response) throws IOException {
-		out.println("LOGOUT CALLED");
 			final Cookie[] cookies = request.getCookies();
 			
 			Cookie refreshCookie = Arrays.stream(cookies)
@@ -154,14 +148,11 @@ public class UserController {
 			String accessToken = accessCookie.getValue();	
 			
 			String refreshToken  = refreshCookie.getValue();
-			
-			out.println("HERE: ACCESS TOKEN: " + accessToken);
-			out.println("HERE: REFRESH TOKEN: " + refreshToken);
+
 			try {
 				userService.logOut(accessToken, refreshToken);
 			} catch (Exception e) {
 				throw e;
-			}
-			
+			}		
 	}
 }

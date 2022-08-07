@@ -12,7 +12,7 @@ import com.hung.Ecommerce.Model.Product_SortTypes;
 
 public interface ProductService extends AppService<Product> {
 
-	public List<Product> findManyByProperty(String propertyName, List<Object> values, boolean trueIsAscending_falseIsDescending,
+	public List<Product> findManyByProperty(String propertyName, Object[] values, boolean trueIsAscending_falseIsDescending,
 			boolean fetchOrNot);
 	
 	public SearchProductResult searchByName(String keyWords, int offset, int limit, Product_SortTypes sortType

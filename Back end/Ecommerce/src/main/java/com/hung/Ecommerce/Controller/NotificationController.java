@@ -25,7 +25,7 @@ public class NotificationController {
 
 	
 	@PatchMapping("/updateStatus")
-		public ResponseEntity<String> updateStatus(@RequestBody  List<String> request,
+		public ResponseEntity<String> updateStatus(@RequestBody  Object[] request,
 				OAuth2Authentication authentication) throws GeneralException {
 				try {
 					notificationService.updateStatus(request, authentication.getName());
