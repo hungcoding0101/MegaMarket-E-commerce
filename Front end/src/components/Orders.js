@@ -5,20 +5,11 @@ import { productUtil } from "../Util/ProductUtil";
 import { Formatter } from "../Util/Formatter";
 import { useCurrentUser } from '../Hooks/UserHooks';
 import { Link } from 'react-router-dom';
-import { useAllProducts } from '../Hooks/ProductHooks';
+import { useProductsById } from '../Hooks/ProductHooks';
 import { useCancelOrder } from '../Hooks/OrderHooks';
 
 
 export default function Orders() {
-       /*  const user = useCurrentUser(null, null, true);
-
-        const all_product_data.data = useAllProducts(
-        null,
-        (error) => {
-          console.log(`ERROR: ${JSON.stringify(error.response.data)}`);
-        },
-        false
-      )?.data?.data; */
 
       const {
         data: user_data,
@@ -27,18 +18,14 @@ export default function Orders() {
         isSuccess: user_isSuccess,
       } = useCurrentUser(null, null, false);
 
+      const productIds = user_data?.data?.orders.map((order) => order.product);
+
       const {
         data: all_product_data,
         isError: all_product_isError,
         isLoading: all_product_isLoading,
         isSuccess: all_product_isSuccess,
-      } = useAllProducts(
-        null,
-        (error) => {
-          console.log(`ERROR: ${JSON.stringify(error.response.data)}`);
-        },
-        true
-      );
+      } = useProductsById(productIds, null, null, true);
 
       const cancel = useCancelOrder();
 

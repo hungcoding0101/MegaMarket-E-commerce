@@ -9,7 +9,7 @@ export const placeOrder = async (orders) => {
 };
 
 export const cancelOrder = async (id) => {
-     return await axios.delete(`/order/cancel?id=${id}`, {
+     return await axios.patch(`/order/cancel?id=${id}`, {
        headers: {
          contain_token: "yes",
        },

@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const listProductCategories = async () => {
-    return await axios.get(`/product/categories/tree`, {
+    return await axios.get(`/products/categories/tree`, {
       headers: {
         Accept: "application/json",
       },
@@ -9,7 +9,7 @@ export const listProductCategories = async () => {
 }
 
 export const getAllProductCategories = async () => {
-  return await axios.get(`/product/categories/all`, {
+  return await axios.get(`/products/categories/all`, {
     headers: {
       Accept: "application/json",
     },
@@ -17,7 +17,7 @@ export const getAllProductCategories = async () => {
 };
 
 export const getCategoriesByDepth = async (depth, offset, limit) => {
-  const response = await axios.get(`/product/categories`,
+  const response = await axios.get(`/products/categories`,
     {
       params: {
           depth: depth,
@@ -31,7 +31,7 @@ export const getCategoriesByDepth = async (depth, offset, limit) => {
 
 export const getSuggestions = async (keyWords, offset, limit) => {
   console.log('SUGGETS ACTION CALLED')
-  return await axios.get(`/product/suggestions`, {
+  return await axios.get(`/products/suggestions`, {
     params: {
       keyWords: keyWords,
       offset: offset,

@@ -21,7 +21,7 @@ const retryFunc = (failureCount, error) => {
       }
 
 /*Proxy for axios requests */
-axios.defaults.baseURL = "";
+axios.defaults.baseURL = "http://192.168.1.4:8080/";
 axios.defaults.withCredentials = true;
 
 const queryClient = new QueryClient({

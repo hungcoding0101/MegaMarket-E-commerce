@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from 'react-query'
-import { getAllProducts, getProduct, search_product } from "../actions/ProductAction";
+import { getAllProducts, getProduct, getProducts, search_product } from "../actions/ProductAction";
 import {product_keys} from '../QueryKeys/Product_Keys'
 
 
@@ -78,12 +78,13 @@ export const useSearch_product = (
   );
 };
 
-/* 
+
 export const useProductsById = (ids, onSuccess, onError, enabled) => {
   return useQuery(product_keys.ids(ids), () => getProducts(ids), {
     enabled: enabled,
     onError: (error) => (onError ? onError(error) : {}),
     onSuccess: (data) => (onSuccess ? onSuccess(data) : {}),
+    staleTime: 60000,
   });
-}; */
+};
 

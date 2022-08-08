@@ -80,9 +80,6 @@ export default function UploadingProduct (props){
         const stringValues = JSON.stringify(values)
         formData.append("product",stringValues)
 
-        console.log(`Received values of form: ${JSON.stringify(values)} || ${avatarState} ||${otherImageState}`);
-
-        
         upload.mutate(formData, {
             onError: (error) =>
               Modal.error({

@@ -101,7 +101,7 @@ export const updateBasicInfo = async (request) => {
 }
 
 export const updateAddresses = async (request) => {
-  return await axios.put(`/customer/updateAddresses`, request, {
+  return await axios.patch(`/customer/updateAddresses`, request, {
     headers: {
       contain_token: "yes",
     },

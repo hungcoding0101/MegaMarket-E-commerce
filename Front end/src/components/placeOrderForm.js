@@ -4,7 +4,7 @@ import {Formatter} from '../Util/Formatter'
 import {useResetFormOnCloseModal} from './productOptionsForm'
 import {productUtil} from '../Util/ProductUtil'
 import { useCurrentUser } from '../Hooks/UserHooks';
-import { useAllProducts } from '../Hooks/ProductHooks';
+import { useProductsById } from '../Hooks/ProductHooks';
 
 
  const PlaceOrderForm = ({ visible, onCancel, orders }) => {
@@ -14,13 +14,10 @@ import { useAllProducts } from '../Hooks/ProductHooks';
 
   const user = useCurrentUser(null, null, true);
 
-    const productList = useAllProducts(
-      null,
-      (error) => {
-        console.log(`ERROR: ${JSON.stringify(error.response.data)}`);
-      },
-      true
-    )?.data?.data;
+  const productIds = orders.map((order) => order.product);
+
+    const productList = useProductsById(productIds, null, null, productIds.length > 0)
+      ?.data?.data;
 
    const onOk = async () => {
      console.log('SUBMITED')

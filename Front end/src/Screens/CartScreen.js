@@ -5,7 +5,7 @@ import {productUtil} from '../Util/ProductUtil'
 import { Formatter } from "../Util/Formatter";
 import PlaceOrderForm from '../components/placeOrderForm';
 import { useCurrentUser } from '../Hooks/UserHooks';
-import { useAllProducts } from '../Hooks/ProductHooks';
+import { useProductsById } from '../Hooks/ProductHooks';
 import { usePlaceOrder } from '../Hooks/OrderHooks';
 import { useDeleteCart } from '../Hooks/CustomerHooks'
 
@@ -15,18 +15,15 @@ const  CartScreen = () => {
   const { data:user_data, isError: user_isError, isLoading: user_isLoading, isSuccess: user_isSuccess } =
     useCurrentUser(null, null, false);
 
+  const productIds = user_data?.data?.cart.map((item) => item.product);
+
   const {
     data: all_product_data,
     isError: all_product_isError,
     isLoading: all_product_isLoading,
     isSuccess: all_product_isSuccess,
-  } = useAllProducts(
-    null,
-    (error) => {
-      console.log(`ERROR: ${JSON.stringify(error.response.data)}`);
-    },
-    true
-  );
+  } = useProductsById(productIds, null, null, true);
+  
 
   const deleteCart = useDeleteCart();
 
@@ -267,7 +264,6 @@ const  CartScreen = () => {
           dataIndex: "quantity",
           editable: true,
           align: "center",
-          /* shouldCellUpdate: (record, prevRecord) => record.quantity !== prevRecord.quantity, */
         },
 
         {
@@ -354,6 +350,7 @@ const  CartScreen = () => {
             /*  rowClassName={() => "editable-row"} */
             rowKey={(record) => record.id}
             bordered
+            tableLayout='auto'
             dataSource={props.dataSource}
             columns={editedColumns}
             rowSelection={{
@@ -539,7 +536,6 @@ const  CartScreen = () => {
         });
       };
 
-      console.log("READY");
       return (
         <Spin spinning={placeOrder.isLoading || deleteCart.isLoading} tip='Processing...'>
           <EditableTable dataSource={dataSource}></EditableTable>

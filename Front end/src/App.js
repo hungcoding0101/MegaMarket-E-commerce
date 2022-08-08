@@ -35,8 +35,6 @@ function App(props) {
   axios.defaults.headers.patch["X-XSRF-TOKEN"] = cookies["XSRF-TOKEN"];
   axios.defaults.headers.delete["X-XSRF-TOKEN"] = cookies["XSRF-TOKEN"];
 
-  console.log('APP CALLED')
-
   const user = useCurrentUser(
     null,
     null,
@@ -199,7 +197,7 @@ function App(props) {
                 ></SideMenu>
               </Drawer>
             </main>
-            <footer className="row center">All right reserved</footer>
+            {/* <footer className="row center">All right reserved</footer> */}
           </BrowserRouter>
           {/* <ReactQueryDevtoolsPanel
             style={{ width: "100%" }}
